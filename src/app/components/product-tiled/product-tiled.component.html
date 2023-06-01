@@ -1,0 +1,23 @@
+<div class="d-flex flex-wrap justify-content-center m-4">
+  <div *ngFor="let item of products" class="row text">
+    <div class="col-12">
+        <b>{{ item.productName }}</b><br><br>
+        {{ item.productNameDescription | titlecase }}<br>
+        Wersja: {{ item.lastVersion }}<br>
+        System: {{ item.operatingSystem }}<br>
+        Cena: {{ item.basePrice | number:'1.2-2' | customCurrency }} zł<br>
+        {{ item.description | truncate:50 }}
+    </div>
+    <div class="align-items-bottom">
+        <dx-button
+          stylingMode="contained"
+          text="Szczegóły"
+          type="success"
+          [width]="120"
+          (click)="viewItem(item.productId)"
+        >
+        </dx-button>
+    </div>
+  </div>
+
+</div>

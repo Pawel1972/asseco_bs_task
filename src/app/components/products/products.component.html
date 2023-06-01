@@ -1,0 +1,8 @@
+Widok: 
+<dx-button icon="detailslayout" (click)="setListLayout()" [disabled]="viewType === enum.List"></dx-button>
+<dx-button icon="mediumiconslayout" (click)="setTiledLayout()" [disabled]="viewType === enum.Tiled"></dx-button>
+
+<div [ngSwitch]="viewType">
+    <app-product-list *ngSwitchCase="enum.List"></app-product-list>
+    <app-product-tiled *ngSwitchCase="enum.Tiled"></app-product-tiled>
+</div>

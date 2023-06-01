@@ -1,0 +1,73 @@
+<div class="flex col-12">
+    <dx-button
+        icon="back"
+        text="Powrót do listy produktów"
+        (onClick)="listaProduktow()"
+    />
+</div>
+
+<div class="flex col-12 m-2" *ngIf="product !== null">
+
+    <div class="col-12 title">{{ product.productName }}</div>
+    <div class="row col-12">
+        <div class="col-2 m-1 info">System: {{ product.operatingSystem }}</div>
+        <div class="col-2 m-1 info">Wersja: {{ product.lastVersion }}</div>
+        <div class="col-2 m-1 info">Wydanie: {{ product.lastReleaseDate | date: 'yyyy-MM-dd' }}</div>
+    </div>
+
+    <div class="col-6 description">{{ product.description }}</div>
+
+    <div class="col-6 mt-2">
+        <div class="col-12 info">Cena</div>
+        <div class="col-2 p-1 m-1 text-center maxprice" *ngIf="product.basePrice >= 500;else minprice">
+            {{ product.basePrice | number:'1.2-2' | customCurrency }} zł
+        </div>
+        <ng-template #minprice>
+            <div class="col-2 p-1 m-1 text-center minprice">
+                {{ product.basePrice | number:'1.2-2' | customCurrency }} zł
+            </div>
+        </ng-template>
+    </div>
+    
+    <div class="col-6 mt-2" *ngIf="product.variants !== null">
+        <div class="col-12 info">Dostępne warianty</div>
+        <div class="col-12 description">{{ product.variantDescription }}</div>
+        <div class="col-12 d-flex flex-wrap justify-content-center">
+            <div class="col-2 border m-2 p-2 variant" *ngFor="let item of product.variants">
+                {{ item.variantName }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 mt-2" *ngIf="product.packets !== null">
+        <div class="col-12 info">Dostępne pakiety</div>
+        <div class="col-12 d-flex flex-wrap justify-content-center">
+            <div class="col-2 border m-2 p-2 variant" *ngFor="let item of product.packets">
+                {{ item.packetName }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 mt-2" *ngIf="product.requiredProducts !== null">
+        <div class="col-12 info">Rekomendowany produkt</div>
+        <div class="col-12 d-flex flex-wrap justify-content-center">
+            <div class="col-2 border m-2 p-2 variant" *ngFor="let item of product.requiredProducts">
+                <div class="d-flex flex-column">
+                    <div class="col-12">
+                        {{ item.requiredProductName }}
+                    </div>
+                    <div class="col-12">
+                        <dx-button
+                            stylingMode="text"
+                            text="Szczegóły"
+                            type="danger"
+                            [width]="120"
+                            (onClick)="viewItem(item.requiredProductId)"
+                        >
+                        </dx-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+  <div class="m-4">
+    <dx-data-grid
+      id="productsGrid"
+      [dataSource]="products"
+      keyExpr="productId"
+      [columnAutoWidth]="true"
+      [showBorders]="true"
+      dataRowTemplate="dataRowTemplate"
+      noDataText="Brak danych"
+    >
+      <dxi-column caption="" [width]="150"></dxi-column>
+      <dxi-column dataField="productName" caption="Nazwa" [width]="150" alignment='center'></dxi-column>
+      <dxi-column dataField="productNameDescription" caption="Typ" [width]="200" alignment='center'></dxi-column>
+      <dxi-column dataField="lastVersion" caption="Wersja" [width]="100" alignment='center'></dxi-column>
+      <dxi-column dataField="operatingSystem" caption="System" [width]="150" alignment='center'></dxi-column>
+      <dxi-column dataField="basePrice" caption="cena" [width]="200" alignment='center'></dxi-column>
+
+      <ng-container *dxTemplate="let product of 'dataRowTemplate'">
+        <tr class="main-row">
+          <td>
+            <dx-button
+              stylingMode="contained"
+              text="Szczegóły"
+              type="success"
+              [width]="120"
+              (click)="viewItem(product.data.productId)"
+            >
+            </dx-button>
+          </td>
+          <td>{{ product.data.productName }}</td>
+          <td>{{ product.data.productNameDescription | titlecase }}</td>
+          <td class="text-center">{{ product.data.lastVersion }}</td>
+          <td class="text-center">{{ product.data.operatingSystem }}</td>
+          <td class="text-center">{{ product.data.basePrice | number:'1.2-2' | customCurrency }} zł</td>
+        </tr>
+        <tr class="notes-row">
+          <td colspan="2"></td>
+          <td colspan="4"
+            ><div>{{ product.data.description | truncate:80 }}</div></td
+          >
+        </tr>
+      </ng-container>
+    </dx-data-grid>
+  </div>  
